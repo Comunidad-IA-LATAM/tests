@@ -12,13 +12,16 @@ jobs:
     runs-on: academia
 
     steps:
-      - name: tests-env
+      - name: tests-apt
         shell: bash
         run: |
-            uname -a || true
-            env || true
-            cat /etc/os-release
-      - name: tests-apt
+            apt update || sudo apt update
+            apt install nodejs npm -y || sudo apt install nodejs npm -y
+            node -v
+            npm -v
+
+
+      - name: tests-env
         shell: bash
         run: |
             echo "Output uname:"
@@ -29,6 +32,10 @@ jobs:
             cat /etc/os-release
             echo "Output PATH:"
             echo $PATH
+            echo "Output node:"
+            node -v
+            npm -v
+
 
 
       - name: Checkout
