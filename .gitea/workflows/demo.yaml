@@ -9,9 +9,7 @@ on:
 jobs:
   mirror:
     if: github.repository_owner == 'nicolas-georger'
-    runs-on:
-      - host
-      - academia
+    runs-on: academia
 
     steps:
       - name: tests-env
