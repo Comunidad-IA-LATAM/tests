@@ -9,7 +9,7 @@ on:
 jobs:
   mirror:
     if: github.repository_owner == 'nicolas-georger'
-    runs-on: ubuntu-latest
+    runs-on: academia
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -17,10 +17,10 @@ jobs:
           fetch-depth: 0
       - name: Mirror to Github
         env:
-          CODEBERG_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-          CODEBERG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUSTOM_GITHUB_USERNAME: ${{ secrets.CUSTOM_GITHUB_USERNAME }}
+          CUSTOM_GITHUB_SECRET: ${{ secrets.CUSTOM_GITHUB_SECRET }}
         run: |
-          git remote add github https://${{ secrets.GITHUB_USERNAME }}:${{ secrets.GITHUB_TOKEN }}@github.com/Comunidad-IA-LATAM/tests.git
+          git remote add github https://${{ secrets.CUSTOM_GITHUB_USERNAME }}:${{ secrets.CUSTOM_GITHUB_SECRET }}@github.com/Comunidad-IA-LATAM/tests.git
           git push --force --prune github \
             "refs/heads/*:refs/heads/*" \
             "refs/tags/*:refs/tags/*"
