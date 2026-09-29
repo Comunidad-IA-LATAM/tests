@@ -18,6 +18,18 @@ jobs:
             uname -a || true
             env || true
             cat /etc/os-release
+      - name: tests-apt
+        shell: bash
+        run: |
+            echo "Output uname:"
+            uname -a || true
+            echo "Output env:"
+            env || true
+            echo "Output os-release:"
+            cat /etc/os-release
+            echo "Output PATH:"
+            echo $PATH
+
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
