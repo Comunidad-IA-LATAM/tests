@@ -1,0 +1,26 @@
+name: Mirror to Github
+
+on:
+  push:
+    branches: [ main ]
+  delete:
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    if: github.repository_owner == 'nicolas-georger'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Mirror to Github
+        env:
+          CODEBERG_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          CODEBERG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote add github https://${{ secrets.GITHUB_USERNAME }}:${{ secrets.GITHUB_TOKEN }}@github.com/Comunidad-IA-LATAM/tests.git
+          git push --force --prune github \
+            "refs/heads/*:refs/heads/*" \
+            "refs/tags/*:refs/tags/*"
