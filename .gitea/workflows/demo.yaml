@@ -9,8 +9,18 @@ on:
 jobs:
   mirror:
     if: github.repository_owner == 'nicolas-georger'
-    runs-on: academia
+    runs-on:
+      - host
+      - academia
+
     steps:
+      - name: tests-env
+        shell: bash
+        run: |
+            uname -a || true
+            env || true
+            cat /etc/os-release
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
